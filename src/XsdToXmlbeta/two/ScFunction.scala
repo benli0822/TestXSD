@@ -8,40 +8,46 @@ trait ScFunction
 
 abstract class ScClass(value: List[Any]) {
   var toString: String
+  var pos: Int
 
   def write = toString
+
+  def getPos = pos
 }
 
 class ScName(value: List[Any]) extends ScClass(value: List[Any]) {
+  override var pos = 1
   override var toString = "class " + value(0)
 }
 
 class ScVariable(value: List[Any]) extends ScClass(value: List[Any]) {
+  override var pos = 2
   override var toString = ""
 }
 
 class ScParam(value: List[Any]) extends ScClass(value: List[Any]) {
-  val typeName = (value(0) match {
+  override var pos = 3
+  val typeName = value(0) match {
     case "xs:string" => "s: String"
     // possible on adding new type
-  })
+  }
   override var toString = typeName
 }
 
 class ScBody(value: List[Any]) extends ScClass(value: List[Any]) {
+  override var pos = 4
   val funName = value(0).toString
   override var toString = "def " + funName + " = "
   for (i <- 1 to value.length - 1)
     value(i) match {
       case num: Int => toString += value(i)
-      case list: List[Element] => {
+      case list: List[Element] =>
         toString += "["
         for (l <- list) {
-          toString += l.getAttributeString("name")
+          toString += "\"" + l.getAttributeString("name") + "\""
         }
         toString += "]"
       }
-    }
 }
 
 object ScFunction {
