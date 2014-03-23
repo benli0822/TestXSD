@@ -35,7 +35,7 @@ class ScalaVisitor(val elem: Element) {
 
 object Test1 {
   def main(args: Array[String]) {
-    val parser = new XsdParser("address.xsd")
+    lazy val parser = new XsdParser("address.xsd")
     parser.parse()
     val scVisitor = new ScalaVisitor(parser.childList(1))
     for (e <- scVisitor.elemBuffer)

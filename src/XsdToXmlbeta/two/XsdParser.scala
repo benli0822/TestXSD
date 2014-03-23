@@ -64,9 +64,9 @@ class ParentElement(element: Node) extends Element(element: Node) {
 
 class XsdParser(val fileName: String) {
   // save all sequence element when traverse the xsd file
-  val xsdFile = scala.xml.XML.loadFile(fileName)
+  lazy val xsdFile = scala.xml.XML.loadFile(fileName)
   // find all element node sequence
-  val element = (xsdFile \\ "element")
+  val element = xsdFile \\ "element"
   val parentList: ListBuffer[ParentElement] = new ListBuffer[ParentElement]()
   val childList: ListBuffer[ChildElement] = new ListBuffer[ChildElement]()
 
