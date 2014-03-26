@@ -48,6 +48,7 @@ class ScBody(value: List[Any]) extends ScClass(value: List[Any]) {
         }
         toString += "]"
       }
+
 }
 
 object ScFunction {

@@ -30,6 +30,8 @@ class ScalaVisitor(val elem: Element) {
     case _ =>
   }
 
+  _elemBuffer += ScFunction("body", List("writeTo"))
+
   def elemBuffer = _elemBuffer
 }
 
